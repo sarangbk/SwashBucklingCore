@@ -7,6 +7,8 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Swashbuckle;
+using Swashbuckle.SwaggerGen;
 
 namespace SwashBucklingCore
 {
@@ -29,6 +31,8 @@ namespace SwashBucklingCore
         }
 
         public IConfigurationRoot Configuration { get; set; }
+        private string pathToDoc =
+    "C:\\git\\damienbod\\AspNet5GeoElasticsearch\\artifacts\\bin\\AspNet5GeoElasticsearch\\Debug\\dnx451\\AspNet5GeoElasticsearch.xml";
 
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
@@ -37,6 +41,22 @@ namespace SwashBucklingCore
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+            services.AddSwaggerGen();
+
+            services.ConfigureSwaggerDocument(options =>
+            {
+                options.SingleApiVersion(new Info
+                {
+                    Version = "v1",
+                    Title = "Sarang's Article API",
+                    Description = "A sample for demonstrating use of Swagger and Swashbuckle to generate API docs and API clients",
+                    TermsOfService = "Use it!"
+                });
+
+            });
+            services.ConfigureSwaggerSchema(options => {
+                options.DescribeAllEnumsAsStrings = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
@@ -54,6 +74,9 @@ namespace SwashBucklingCore
             app.UseStaticFiles();
 
             app.UseMvc();
+
+            app.UseSwaggerGen();
+            app.UseSwaggerUi();                       
         }
 
         // Entry point for the application.
