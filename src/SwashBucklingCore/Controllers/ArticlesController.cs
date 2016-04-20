@@ -14,8 +14,8 @@ namespace SwashBucklingCore.Controllers
         public List<Article> Articles { get; set; }
         ArticlesController()
         {
-            Articles.Add(new Article { Id = 1, Title = "Article1", Body ="This is an interestig article", Author = "Shakespeare"});
-            Articles.Add(new Article { Id = 2, Title = "Article2", Body ="This is another interestig article", Author = "Sarang"});
+            Articles.Add(new Article { Id = 1, Title = "Article1", Body = "This is an interestig article", Author = "Shakespeare"});
+            Articles.Add(new Article { Id = 2, Title = "Article2", Body = "This is another interestig article", Author = "Sarang"});
         }
         // GET: api/articles
         [HttpGet]
