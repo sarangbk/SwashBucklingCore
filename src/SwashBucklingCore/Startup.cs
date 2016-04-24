@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.SwaggerGen;
+using SwashBucklingCore.Models;
 
 namespace SwashBucklingCore
 {
@@ -37,6 +38,8 @@ namespace SwashBucklingCore
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+            //Injecting the ArticleRepository
+            services.AddSingleton<IArticleRepository, ArticleRepository>();
             services.AddSwaggerGen();
 
             services.ConfigureSwaggerDocument(options =>
